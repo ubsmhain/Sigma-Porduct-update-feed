@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="8"
-  DTS:VersionGUID="{0081D5A7-3D60-4C61-94BE-DAA60EA68A7E}">
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{4D5D7AEA-59EC-43D4-BF3A-783AAA01DDF7}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -331,7 +331,7 @@
             <DTS:Property
               DTS:Name="ServerPassword"
               Sensitive="1"
-              Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIhFE1ycFxEKwhWMKMaCJjQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABx0OmXCmSILm+FyPcAWmMdAAAAAASAAACgAAAAEAAAAK+uJzcF6hkAXOoxwjIFsQkoAAAA9/+k6oEoLZQzo1j8y9x9BTtk+6plUeRdXy2xF+v47l/bALm+TonxeBQAAACErFIt757FlPO2+0e8Tkyn1WIpiw</DTS:Property>
+              Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIhFE1ycFxEKwhWMKMaCJjQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABkPijMPc1VFtjcWYQBjQL0AAAAAASAAACgAAAAEAAAAJriLPwpeAJ+7G2SiIynRsooAAAAhuFeK4WrRUyRzZujQL/JAbtm2G3la6Mc+fX84AwwBIo+wpZ05iHZxxQAAABMJ6gOshXieyf6UxaZLNg9ESsPZw</DTS:Property>
           </DTS:FtpConnection>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
@@ -369,7 +369,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIhFE1ycFxEKwhWMKMaCJjQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAACU4DR11C6DEtIUWchJkBuIAAAAAASAAACgAAAAEAAAALtVI5OmrxQbGJQ91akL7u0YAAAAmn5t2wj6P8a6c1HsT0EaMjQYmgRTmHIvFAAAAJlgTg87wXl8FtwwNqX8gaPNXJDG</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIhFE1ycFxEKwhWMKMaCJjQAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAADivZ56xoHKhw73JJ6FqPZXAAAAAASAAACgAAAAEAAAAFEgQWDYGrV0sIs01qogKx8YAAAAm3IFbV/6E36KlmO5mciVj5xEOSoAZX51FAAAAINSOZaZfqVJanpUhT2HU/dVa9xe</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -384,7 +384,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="ArchiveFolder">
       <DTS:VariableValue
-        DTS:DataType="8">\\fs01\NAS\Sigma\ProductUPdateFeed_oldFiles\ProductUPdateFeed01062023_11_34.CSV</DTS:VariableValue>
+        DTS:DataType="8">\\fs01\NAS\Sigma\ProductUPdateFeed_oldFiles\ProductUPdateFeed01102023_11_13.CSV</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -1703,6 +1703,23 @@ FROM            vw_sigma_product_update_feed</property>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{607B2F97-88CA-487F-BD3D-852D7BFEEA6E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{0890E4EA-02F2-42E7-AC97-1BB26A20B3B5}"
+          SQLTask:SqlStatementSource="select 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\FTP Task"
       DTS:CreationName="Microsoft.FtpTask"
       DTS:Description="FTP Task"
@@ -1788,6 +1805,14 @@ FROM            vw_sigma_product_update_feed</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\Send Mail Task" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{062E8E7B-5005-4A34-92DF-C08498CA4879}"
+      DTS:From="Package\Send Mail Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Execute SQL Task" />
   </DTS:PrecedenceConstraints>
   <DTS:EventHandlers>
     <DTS:EventHandler
@@ -1849,7 +1874,7 @@ FROM            vw_sigma_product_update_feed</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="153,42"
           Id="Package\Data Flow Task"
@@ -1859,9 +1884,13 @@ FROM            vw_sigma_product_update_feed</property>
           Id="Package\FTP Task"
           TopLeft="294,197" />
         <NodeLayout
+          Size="198,42"
+          Id="Package\Move File to Archive"
+          TopLeft="243,314" />
+        <NodeLayout
           Size="152,42"
           Id="Package\Send Mail Task"
-          TopLeft="403,425" />
+          TopLeft="407,427" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="163.5,109">
@@ -1896,10 +1925,6 @@ FROM            vw_sigma_product_update_feed</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="198,42"
-          Id="Package\Move File to Archive"
-          TopLeft="243,314" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="356,239">
@@ -1940,26 +1965,64 @@ FROM            vw_sigma_product_update_feed</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="137,69"
+              EndConnector="141,71"
               Start="0,0"
-              End="137,61.5">
+              End="141,63.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.5" />
+                    End="0,31.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,30.5"
-                    Point2="0,34.5"
-                    Point3="4,34.5" />
+                    Point1="0,31.5"
+                    Point2="0,35.5"
+                    Point3="4,35.5" />
                   <mssgle:LineSegment
-                    End="133,34.5" />
+                    End="137,35.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="133,34.5"
-                    Point2="137,34.5"
-                    Point3="137,38.5" />
+                    Point1="137,35.5"
+                    Point2="141,35.5"
+                    Point3="141,39.5" />
                   <mssgle:LineSegment
-                    End="137,61.5" />
+                    End="141,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="764,454" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="559,448">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="205,27"
+              Start="0,0"
+              End="197.5,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="98.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="98.5,0"
+                    Point2="102.5,0"
+                    Point3="102.5,4" />
+                  <mssgle:LineSegment
+                    End="102.5,23" />
+                  <mssgle:CubicBezierSegment
+                    Point1="102.5,23"
+                    Point2="102.5,27"
+                    Point3="106.5,27" />
+                  <mssgle:LineSegment
+                    End="197.5,27" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
